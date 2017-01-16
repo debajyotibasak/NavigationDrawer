@@ -13,12 +13,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     NavigationView navigationView = null;
     Toolbar toolbar = null;
+
+    private boolean shouldLoadHomeFragOnBackPress = true;
+    private int ITEM = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,20 +58,41 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+            drawer.closeDrawers();
+            return;
         }
+
+        // This code loads home fragment when back key is pressed
+        // when user is in other fragment than home
+        if (shouldLoadHomeFragOnBackPress) {
+            // checking if user is on other navigation menu
+            // rather than home
+            if (ITEM > 1) {
+                ITEM = 0;
+
+                DashboardFragment dashboardFragment = new DashboardFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction =
+                        getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, dashboardFragment);
+                fragmentTransaction.commit();
+
+
+                return;
+            }
+        }
+
+        super.onBackPressed();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -79,7 +104,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            Toast.makeText(this, "Logout User", Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -89,39 +115,48 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        // Handle main view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_dashboard) {
             //Set the Camera initially
+            ITEM = 1;
             DashboardFragment dashboardFragment = new DashboardFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, dashboardFragment);
             fragmentTransaction.commit();
+
         } else if (id == R.id.nav_my_details) {
             //Set the gallery initially
+            ITEM = 2;
             MyDetailsFragment myDetailsFragment = new MyDetailsFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, myDetailsFragment);
             fragmentTransaction.commit();
 
+
         } else if (id == R.id.nav_feedback) {
+            ITEM = 3;
             FeedbackFragment feedbackFragment = new FeedbackFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, feedbackFragment);
             fragmentTransaction.commit();
 
+
         } else if (id == R.id.nav_assessment) {
+            ITEM = 4;
             AssessmentFragment assessmentFragment = new AssessmentFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, assessmentFragment);
             fragmentTransaction.commit();
 
+
         } else if (id == R.id.nav_psychometric) {
+            ITEM = 5;
             PsychometricFragment psychometricFragment = new PsychometricFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
@@ -129,47 +164,57 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
 
 
+
         } else if (id == R.id.nav_virtual_class) {
+            ITEM = 6;
             VirtualClassFragment virtualClassFragment = new VirtualClassFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, virtualClassFragment);
             fragmentTransaction.commit();
 
+
         } else if (id == R.id.nav_find_book) {
+            ITEM = 7;
             FindBookFragment findBookFragment = new FindBookFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, findBookFragment);
             fragmentTransaction.commit();
 
+
         } else if (id == R.id.nav_placements) {
+            ITEM = 8;
             PlacementFragment placementFragment = new PlacementFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, placementFragment);
             fragmentTransaction.commit();
 
+
         } else if (id == R.id.nav_account) {
+            ITEM = 9;
             AccountFragment accountFragment = new AccountFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, accountFragment);
             fragmentTransaction.commit();
 
+
         } else if (id == R.id.nav_about_us) {
+            ITEM = 10;
             AboutUsFragment aboutUsFragment = new AboutUsFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, aboutUsFragment);
             fragmentTransaction.commit();
 
+
         } else if (id == R.id.nav_settings) {
-            
+            ITEM = 11;
+
 
         }
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
