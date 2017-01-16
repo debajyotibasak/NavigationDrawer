@@ -2,9 +2,11 @@ package com.epaathsala.navigationdrawer;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,6 +19,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -26,6 +33,11 @@ public class MainActivity extends AppCompatActivity
     private boolean shouldLoadHomeFragOnBackPress = true;
     private int ITEM = 0;
     private String[] activityTitles;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +46,7 @@ public class MainActivity extends AppCompatActivity
 
         //Set the fragment initially
         DashboardFragment fragment = new DashboardFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
+        FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
@@ -48,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "If you need help, consult your professor", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -61,6 +73,9 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void setToolbarTitle() {
@@ -87,7 +102,7 @@ public class MainActivity extends AppCompatActivity
                 ITEM = 0;
 
                 DashboardFragment dashboardFragment = new DashboardFragment();
-                android.support.v4.app.FragmentTransaction fragmentTransaction =
+                FragmentTransaction fragmentTransaction =
                         getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, dashboardFragment);
                 fragmentTransaction.commit();
@@ -141,7 +156,7 @@ public class MainActivity extends AppCompatActivity
             ITEM = 1;
             setToolbarTitle();
             DashboardFragment dashboardFragment = new DashboardFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
+            FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, dashboardFragment);
             fragmentTransaction.commit();
@@ -151,7 +166,7 @@ public class MainActivity extends AppCompatActivity
             ITEM = 2;
             setToolbarTitle();
             MyDetailsFragment myDetailsFragment = new MyDetailsFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
+            FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, myDetailsFragment);
             fragmentTransaction.commit();
@@ -161,7 +176,7 @@ public class MainActivity extends AppCompatActivity
             ITEM = 3;
             setToolbarTitle();
             FeedbackFragment feedbackFragment = new FeedbackFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
+            FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, feedbackFragment);
             fragmentTransaction.commit();
@@ -171,7 +186,7 @@ public class MainActivity extends AppCompatActivity
             ITEM = 4;
             setToolbarTitle();
             AssessmentFragment assessmentFragment = new AssessmentFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
+            FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, assessmentFragment);
             fragmentTransaction.commit();
@@ -181,7 +196,7 @@ public class MainActivity extends AppCompatActivity
             ITEM = 5;
             setToolbarTitle();
             PsychometricFragment psychometricFragment = new PsychometricFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
+            FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, psychometricFragment);
             fragmentTransaction.commit();
@@ -191,7 +206,7 @@ public class MainActivity extends AppCompatActivity
             ITEM = 6;
             setToolbarTitle();
             VirtualClassFragment virtualClassFragment = new VirtualClassFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
+            FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, virtualClassFragment);
             fragmentTransaction.commit();
@@ -201,7 +216,7 @@ public class MainActivity extends AppCompatActivity
             ITEM = 7;
             setToolbarTitle();
             FindBookFragment findBookFragment = new FindBookFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
+            FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, findBookFragment);
             fragmentTransaction.commit();
@@ -211,7 +226,7 @@ public class MainActivity extends AppCompatActivity
             ITEM = 8;
             setToolbarTitle();
             PlacementFragment placementFragment = new PlacementFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
+            FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, placementFragment);
             fragmentTransaction.commit();
@@ -221,7 +236,7 @@ public class MainActivity extends AppCompatActivity
             ITEM = 9;
             setToolbarTitle();
             AccountFragment accountFragment = new AccountFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
+            FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, accountFragment);
             fragmentTransaction.commit();
@@ -231,7 +246,7 @@ public class MainActivity extends AppCompatActivity
             ITEM = 10;
             setToolbarTitle();
             AboutUsFragment aboutUsFragment = new AboutUsFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
+            FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, aboutUsFragment);
             fragmentTransaction.commit();
@@ -245,5 +260,41 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Main Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
     }
 }
