@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity
 
     private boolean shouldLoadHomeFragOnBackPress = true;
     private int ITEM = 0;
+    private String[] activityTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
+
+        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -58,6 +61,10 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setToolbarTitle() {
+        getSupportActionBar().setTitle(activityTitles[ITEM]);
     }
 
 
@@ -84,8 +91,7 @@ public class MainActivity extends AppCompatActivity
                         getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, dashboardFragment);
                 fragmentTransaction.commit();
-
-
+                getSupportActionBar().setTitle(activityTitles[1]);
                 return;
             }
         }
@@ -131,8 +137,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_dashboard) {
-            //Set the Camera initially
+
             ITEM = 1;
+            setToolbarTitle();
             DashboardFragment dashboardFragment = new DashboardFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
@@ -140,8 +147,9 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
 
         } else if (id == R.id.nav_my_details) {
-            //Set the gallery initially
+
             ITEM = 2;
+            setToolbarTitle();
             MyDetailsFragment myDetailsFragment = new MyDetailsFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
@@ -151,6 +159,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_feedback) {
             ITEM = 3;
+            setToolbarTitle();
             FeedbackFragment feedbackFragment = new FeedbackFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
@@ -160,6 +169,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_assessment) {
             ITEM = 4;
+            setToolbarTitle();
             AssessmentFragment assessmentFragment = new AssessmentFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
@@ -169,6 +179,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_psychometric) {
             ITEM = 5;
+            setToolbarTitle();
             PsychometricFragment psychometricFragment = new PsychometricFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
@@ -178,6 +189,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_virtual_class) {
             ITEM = 6;
+            setToolbarTitle();
             VirtualClassFragment virtualClassFragment = new VirtualClassFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
@@ -187,6 +199,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_find_book) {
             ITEM = 7;
+            setToolbarTitle();
             FindBookFragment findBookFragment = new FindBookFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
@@ -196,6 +209,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_placements) {
             ITEM = 8;
+            setToolbarTitle();
             PlacementFragment placementFragment = new PlacementFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
@@ -205,6 +219,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_account) {
             ITEM = 9;
+            setToolbarTitle();
             AccountFragment accountFragment = new AccountFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
@@ -214,6 +229,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_about_us) {
             ITEM = 10;
+            setToolbarTitle();
             AboutUsFragment aboutUsFragment = new AboutUsFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
@@ -223,8 +239,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_settings) {
             ITEM = 11;
-
-
+            setToolbarTitle();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
